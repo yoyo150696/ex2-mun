@@ -1,4 +1,6 @@
-package api;
+package Ex2.src.api;
+
+import java.util.HashMap;
 
 /**
  * This interface represents the set of operations applicable on a 
@@ -18,6 +20,8 @@ public interface NodeData {
 	/** Allows changing this node's location.
 	 * @param p - new new location  (position) of this node.
 	 */
+	public EdgeData getEdge(String name);
+	public HashMap<String,EdgeData> getEdges();
 	public void setLocation(GeoLocation p);
 	/**
 	 * Returns the weight associated with this node.
