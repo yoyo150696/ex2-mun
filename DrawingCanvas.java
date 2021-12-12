@@ -62,28 +62,32 @@ public class DrawingCanvas extends JComponent {
         System.out.println(abs_y);
         for (int i = 0; i<graph.getGraph().nodeSize();i++){
             arr.add(graph.getGraph().getNode(i).getLocation());
-            double dis_x = (graph.getGraph().getNode(i).getLocation().x()-min_x)*scale_x;
-            double dis_y = (graph.getGraph().getNode(i).getLocation().y()-min_y)*scale_y;
+            double dis_x = (graph.getGraph().getNode(i).getLocation().x()+0.001-min_x)*scale_x;
+            double dis_y = (graph.getGraph().getNode(i).getLocation().y()+0.0001-min_y)*scale_y;
             arr_disx.add(dis_x);
             arr_disy.add(dis_y);
             System.out.println(arr_disy.get(i));
             System.out.println(arr_disx.get(i));
-            Ellipse2D.Double shape = new Ellipse2D.Double(arr_disx.get(i), arr_disy.get(i), 10, 10);
-            ((Graphics2D) g).fill(shape);
 
 
 
         }
         for (int i = 0;i<graph.getGraph().nodeSize();i++){
+            Rectangle2D rect = new Rectangle2D.Double(arr_disx.get(i)-5, arr_disy.get(i)-5, 10, 10);
+            float x = (float) (arr_disx.get(i)-2);
+            float y = (float) (arr_disy.get(i)-2);
+            String s = String.valueOf(i);
+            g2d.setColor(Color.red);
+            g2d.drawString(s,x,y);
+            g2d.setColor(Color.black);
+            g2d.draw(rect);
             Iterator<EdgeData> edge_I = graph.getGraph().edgeIter(i);
             while (edge_I.hasNext()) {
                 EdgeData edge = edge_I.next();
-                Path2D.Double p = new Path2D.Double();
-                p.moveTo(arr_disx.get(edge.getSrc()),arr_disy.get(edge.getSrc()));
-                p.lineTo(arr_disx.get(edge.getDest()),arr_disy.get(edge.getDest()));
 
+                Line2D line = new Line2D.Double(arr_disx.get(i),arr_disy.get(i),arr_disx.get(edge.getDest()),arr_disy.get(edge.getDest()));
 
-                g2d.draw(p);
+                g2d.draw(line);
             }
         }
 

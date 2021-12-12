@@ -31,6 +31,7 @@ public class MyFrame extends JFrame implements ActionListener {
     JMenuItem shortestPath;
     JMenuItem tsp;
     JMenuItem center;
+    DrawingCanvas dc;
 
 
 
@@ -90,13 +91,17 @@ public class MyFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==load){
+            if(dc!=null)
+                this.remove(dc);
             JFileChooser fileChooser = new JFileChooser();
             int response = fileChooser.showOpenDialog(null);
 
             if (response == JFileChooser.APPROVE_OPTION){
+
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-                DrawingCanvas dc = new DrawingCanvas(1000,1000,file.toString());
+                dc = new DrawingCanvas(1000,1000,file.toString());
                 this.add(dc);
+
                 repaint();
             }
 
